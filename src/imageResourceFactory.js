@@ -1,5 +1,5 @@
-var ImageResource = require('./ImageResource');
-var ThumbnailFactory = require('./ThumbnailFactory');
+var ImageResource = require('./imageResource');
+var ThumbnailFactory = require('./thumbnailFactory');
 
 var _getRectFromStringArray = function(arr) {
   var rectArray = arr.map(function(number) {
@@ -40,7 +40,9 @@ var _buildImageConfig = function(resource) {
              resource.service['@context'] == "https://iiif.io/api/image/2/context.json" ||
              resource.service['@context'] == "http://iiif.io/api/image/1/context.json" ||
              resource.service['@context'] == "https://iiif.io/api/image/1/context.json" ||
-             resource.service['@context'] == "http://library.stanford.edu/iiif/image-api/1.1/context.json")); // &&
+             resource.service['@context'] == "http://library.stanford.edu/iiif/image-api/1.1/context.json") ||
+            resource.service['profile'] == 'http://iiif.io/api/image/2/level1.json'
+           ); // &&
             // !resource.service.width); Let it work anyway, just ignore.
   };
 

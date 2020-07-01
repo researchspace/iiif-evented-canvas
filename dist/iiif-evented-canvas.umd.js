@@ -11,41 +11,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -56,7 +56,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -65,15 +65,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -358,7 +358,7 @@ module.exports = ThumbnailFactory;
 /***/ (function(module, exports, __webpack_require__) {
 
 var ImageResource = __webpack_require__(0);
-var ImageResourceFactory = __webpack_require__(3);
+var ImageResourceFactory = __webpack_require__(4);
 var ThumbnailFactory = __webpack_require__(1);
 
 var CanvasObject = function (config) {
@@ -374,10 +374,10 @@ var CanvasObject = function (config) {
   this.opacity = config.opacity || 1;
   this.index = config.index;
   this.bounds = {
-    x: config.x || 0,
-    y: config.y || 0,
-    height: config.canvas.height,
-    width: config.canvas.width
+    x: config.x ? parseInt(config.x) : 0,
+    y: config.y ? parseInt(config.y) : 0,
+    height: parseInt(config.canvas.height),
+    width: parseInt(config.canvas.width)
   };
   this.viewingHint = config.canvas.viewingHint;
   this.images = [];
@@ -610,6 +610,14 @@ module.exports = CanvasObject;
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var CanvasObject = __webpack_require__(2);
+
+module.exports = CanvasObject;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var ImageResource = __webpack_require__(0);
 var ThumbnailFactory = __webpack_require__(1);
 
@@ -648,7 +656,7 @@ var _buildImageConfig = function (resource) {
 
   // determine whether the resource is dynamic
   var _isDynamic = function () {
-    return !!resource.service && (resource.service['@context'] == "http://iiif.io/api/image/2/context.json" || resource.service['@context'] == "https://iiif.io/api/image/2/context.json" || resource.service['@context'] == "http://iiif.io/api/image/1/context.json" || resource.service['@context'] == "https://iiif.io/api/image/1/context.json" || resource.service['@context'] == "http://library.stanford.edu/iiif/image-api/1.1/context.json"); // &&
+    return !!resource.service && (resource.service['@context'] == "http://iiif.io/api/image/2/context.json" || resource.service['@context'] == "https://iiif.io/api/image/2/context.json" || resource.service['@context'] == "http://iiif.io/api/image/1/context.json" || resource.service['@context'] == "https://iiif.io/api/image/1/context.json" || resource.service['@context'] == "http://library.stanford.edu/iiif/image-api/1.1/context.json") || resource.service['profile'] == 'http://iiif.io/api/image/2/level1.json'; // &&
     // !resource.service.width); Let it work anyway, just ignore.
   };
 
@@ -759,14 +767,6 @@ var ImageResourceFactory = function (image, parent) {
 };
 
 module.exports = ImageResourceFactory;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var CanvasObject = __webpack_require__(2);
-
-module.exports = CanvasObject;
 
 /***/ })
 /******/ ]);

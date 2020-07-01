@@ -1,6 +1,6 @@
-var ImageResource = require('./ImageResource');
-var ImageResourceFactory = require('./ImageResourceFactory');
-var ThumbnailFactory = require('./ThumbnailFactory');
+var ImageResource = require('./imageResource');
+var ImageResourceFactory = require('./imageResourceFactory');
+var ThumbnailFactory = require('./thumbnailFactory');
 
 var CanvasObject = function (config) {
   'use strict';
@@ -15,10 +15,10 @@ var CanvasObject = function (config) {
   this.opacity = config.opacity || 1;
   this.index = config.index;
   this.bounds = {
-    x: config.x || 0,
-    y: config.y || 0,
-    height: config.canvas.height,
-    width: config.canvas.width
+    x: config.x ? parseInt(config.x) : 0,
+    y: config.y ? parseInt(config.y) : 0,
+    height: parseInt(config.canvas.height),
+    width: parseInt(config.canvas.width)
   };
   this.viewingHint = config.canvas.viewingHint;
   this.images = [];
